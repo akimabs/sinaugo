@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"sinaugo/controllers"
+	"sinaugo/src/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
