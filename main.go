@@ -6,6 +6,8 @@ import (
 	"sinaugo/routes"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 )
 
@@ -13,8 +15,10 @@ func main() {
 
 	app := fiber.New()
 
-	envLoader()
+	app.Use(logger.New(), cors.New())
 	routes.Routes(app)
+	
+	envLoader()
 
 	app.Listen(":"+ os.Getenv("HOST_PORT"))
 }

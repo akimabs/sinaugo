@@ -1,18 +1,23 @@
 package routes
 
 import (
+	"sinaugo/controllers"
+
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
-// Routes buat manggil semua enpoin disini
+// Routes buat manggil semua enpoin dimari
 func Routes(app *fiber.App){
 
-	app.Use(logger.New(), cors.New())
 
 	app.Get("/", func(res *fiber.Ctx) error {
-		return res.SendString("API Sinaugo")
+		return res.SendString("Supp men")
 	  })
 
+	  route := app.Group("/api/v1")
+	  route.Get("/", controllers.Index)
+	//   route.Post("/", controllers.Store)
+	//   route.Get("/:id", controllers.Show)
+	//   route.Put("/:id", controllers.Patch)
+	//   route.Delete("/:id", controllers.Destroy)
 }
