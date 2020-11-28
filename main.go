@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"sinaugo/routes"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
@@ -13,6 +14,7 @@ func main() {
 	app := fiber.New()
 
 	envLoader()
+	routes.Routes(app)
 
 	app.Listen(":"+ os.Getenv("HOST_PORT"))
 }
@@ -20,7 +22,7 @@ func main() {
 func envLoader () error {
 	// load .env file
 	err := godotenv.Load(".env")
-	
+
 	if err != nil {
 		fmt.Println("Error loading .env file")
 	}
