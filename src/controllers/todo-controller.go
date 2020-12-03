@@ -1,28 +1,33 @@
-package controllers
+package controller
 
 import (
+	"sinaugo/src/services"
 	"sinaugo/src/utils/flag"
-	utils "sinaugo/src/utils/response"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-// GetData will be show all data
-type GetData struct {
-	ID int `json:"id"`
-	Title string `json:"title"`
-	IsDone bool `json:"isDone"`
+// TodoController -> the propose of todo controller
+type TodoController struct {
+	Service services.TodoService
 }
 
-// Index return all Todos
-func Index(res *fiber.Ctx) error {
 
-	data := [] GetData{
-		{
-			ID: 1,
-			Title: "Belajar masak",
-			IsDone: false,
-		},
+// TController -> user controller instance
+func TController() TodoController {
+	return TodoController{
+		Service: services.TService(),
 	}
-	return utils.ResponseSuccess(res, data, flag.GetAllTodo.Message )
+}
+
+// GetTodos -> get users routes
+// GET /users
+func (t *TodoController) GetTodos(res *fiber.Ctx) error{
+	todos := t.Service.GetTodos()
+	
+	return	res.JSON(fiber.Map{
+		"status": fiber.StatusOK,
+		"data": todos,
+		"message": flag.GetTodoSuccess.Message,
+	})
 }

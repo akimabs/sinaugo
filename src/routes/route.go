@@ -1,13 +1,14 @@
 package routes
 
 import (
-	"sinaugo/src/controllers"
+	controller "sinaugo/src/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 // Routes buat manggil semua enpoin dimari
 func Routes(app *fiber.App){
+	controller := controller.TController()
 
 
 	app.Get("/", func(res *fiber.Ctx) error {
@@ -15,7 +16,7 @@ func Routes(app *fiber.App){
 	  })
 
 	  route := app.Group("/api/v1")
-	  route.Get("/", controllers.Index)
+	  route.Get("/", controller.GetTodos)
 	//   route.Post("/", controllers.Store)
 	//   route.Get("/:id", controllers.Show)
 	//   route.Put("/:id", controllers.Patch)

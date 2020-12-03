@@ -1,31 +1,22 @@
-package utils
+package response
 
-import (
-	"github.com/gofiber/fiber/v2"
-)
-
-// ResponseSuccess : returning json structur for success request
-func ResponseSuccess(res *fiber.Ctx, data interface{}, flag string) error {
-	return res.JSON(fiber.Map{
-		"status":  200,
-		"message": flag,
-		"data":    data,
-	})
+// Success -> general response success format
+type Success struct {
+	Status  int    `json:"status"`
+	Message string `json:"message"`
 }
 
-// ResponseNotFound : returning json structur for notfound request
-func ResponseNotFound(res *fiber.Ctx, data interface{}, flag string) error {
-	return res.JSON(fiber.Map{
-		"status":  404,
-		"message": flag,
-	})
+// Response -> general response format
+type Response struct {
+	Status  int         `json:"status"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data"`
+	Errors  []Error     `json:"errors"`
 }
 
-// ResponseError : returning json structur for error request
-func ResponseError(res *fiber.Ctx, data interface{}, flag string) error {
-	return res.JSON(fiber.Map{
-		"status":  500,
-		"message": flag,
-		"data":    data,
-	})
+
+// Error -> general response error format
+type Error struct {
+	Message string `json:"message"`
+	Flag    string `json:"flag"`
 }
