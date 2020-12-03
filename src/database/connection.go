@@ -3,7 +3,6 @@ package db
 import (
 	"fmt"
 	"os"
-	"sinaugo/src/database/seed"
 
 	"github.com/joho/godotenv"
 	"github.com/sirupsen/logrus"
@@ -38,16 +37,16 @@ func Connection(){
 	}else{
 		logrus.Info("Connection Opened to Database")
 	}
+	fmt.Printf(authDB)
 }
 
 // SeedConnection is connection for seeder
 func SeedConnection(){
 	Connection()
 	if err := godotenv.Load(); err != nil {
-		logrus.Error("ENV", err)
-	}else{
-		seed.CreateTodo(conn)
+		logrus.Error("Error: ", err)
 	}
+	logrus.Info("Connection Opened:Seeder to Database")
 }
 
 // GetDB -> method to get connection instance

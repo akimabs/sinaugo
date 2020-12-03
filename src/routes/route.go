@@ -12,7 +12,9 @@ func Routes(app *fiber.App){
 
 
 	app.Get("/", func(res *fiber.Ctx) error {
-		return res.SendString("Supp men")
+		return res.JSON(fiber.Map{
+			"message": "🐣 v1",
+		})
 	  })
 
 	  route := app.Group("/api/v1")

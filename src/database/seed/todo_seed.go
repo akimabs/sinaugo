@@ -2,7 +2,6 @@ package seed
 
 import (
 	"sinaugo/src/database/entity"
-	"time"
 
 	"github.com/bxcodec/faker/v3"
 	"github.com/sirupsen/logrus"
@@ -16,9 +15,10 @@ func CreateTodo(db *gorm.DB) error {
 		logrus.Errorln("Error todo seed", err)
 	}
 
-	return db.AutoMigrate(&entity.Todo{
+	return db.Create(&entity.Todo{
 		Name: todo.Name,
 		Completed: todo.Completed,
-		CreatedAt: time.Now(),
-	})
+		CreatedAt: todo.CreatedAt,
+		UpdateAt: todo.UpdateAt,
+	}).Error
 }
